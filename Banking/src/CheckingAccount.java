@@ -4,7 +4,7 @@
 public class CheckingAccount extends BankAccount {
     public CheckingAccount(Integer startingBalance) {
         super(startingBalance);
-        interestRate = 0.01;
+        interestRate = 0.02;
     }
 
     @Override
