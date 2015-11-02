@@ -7,6 +7,10 @@ import javafx.geometry.Point3D;
  */
 public abstract class CelestialBody implements CollidableObject {
     public Point3D location; // the body's current location in space
+    public String name;
+    public Double mass;
+
+
 
     @Override
     public void collideWith(CollidableObject otherObject) {
