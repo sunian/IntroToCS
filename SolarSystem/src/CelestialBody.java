@@ -8,7 +8,7 @@ import javafx.geometry.Point3D;
 public abstract class CelestialBody implements CollidableObject {
     public Point3D location; // the body's current location in space; units = AU
     public String name;
-    public double mass; // units = Earth masses
+    public double mass; //  units = Earth masses
 
     public CelestialBody(String name, Point3D startingLocation, Double mass) {
         this.name = name;
