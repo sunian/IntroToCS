@@ -6,11 +6,15 @@ import javafx.geometry.Point3D;
  * This is the parent class for all celestial bodies.
  */
 public abstract class CelestialBody implements CollidableObject {
-    public Point3D location; // the body's current location in space
+    public Point3D location; // the body's current location in space; units = AU
     public String name;
-    public Double mass;
+    public double mass; // units = Earth masses
 
-
+    public CelestialBody(String name, Point3D startingLocation, Double mass) {
+        this.name = name;
+        this.location = startingLocation;
+        this.mass = mass;
+    }
 
     @Override
     public void collideWith(CollidableObject otherObject) {

@@ -1,3 +1,5 @@
+import javafx.geometry.Point3D;
+
 import java.util.List;
 
 /**
@@ -7,6 +9,10 @@ import java.util.List;
  */
 public class Star extends CelestialBody implements FluidObject {
     public List<Planet> planets;
+
+    public Star(String name, Point3D startingLocation, Double mass) {
+        super(name, startingLocation, mass);
+    }
 
 
     @Override
