@@ -1,3 +1,5 @@
+import javafx.geometry.Point3D;
+
 import java.util.List;
 
 /**
@@ -5,4 +7,8 @@ import java.util.List;
  */
 public class Planet extends CelestialBody {
     public List<Moon> moons;
+
+    public Planet(String name, Point3D startingLocation, Double mass) {
+        super(name, startingLocation, mass);
+    }
 }
