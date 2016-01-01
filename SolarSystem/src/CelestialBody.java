@@ -29,4 +29,9 @@ public abstract class CelestialBody implements CollidableObject {
             ((FluidObject) otherObject).onMerge(this);
         }
     }
+
+    @Override
+    public String toString() {
+        return "this is a celestial body called " + name;
+    }
 }
