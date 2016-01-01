@@ -1,4 +1,5 @@
 import javafx.geometry.Point3D;
+import javafx.scene.paint.Color;
 
 /**
  * Created by Sun on 10/13/2015.
@@ -9,11 +10,16 @@ public abstract class CelestialBody implements CollidableObject {
     public Point3D location; // the body's current location in space; units = AU
     public String name;
     public double mass; //  units = Earth masses
+    public Color color;
 
     public CelestialBody(String name, Point3D startingLocation, Double mass) {
         this.name = name;
         this.location = startingLocation;
         this.mass = mass;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
     }
 
     @Override

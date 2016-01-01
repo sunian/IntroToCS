@@ -1,4 +1,5 @@
 import javafx.geometry.Point3D;
+import javafx.scene.canvas.GraphicsContext;
 
 import java.util.List;
 
@@ -12,6 +13,12 @@ public class Star extends CelestialBody implements FluidObject {
 
     public Star(String name, Point3D startingLocation, Double mass) {
         super(name, startingLocation, mass);
+    }
+
+    public void draw(GraphicsContext gc) {
+        gc.setFill(color);
+        gc.fillOval(500, 200, 100, 100);
+
     }
 
 
