@@ -14,6 +14,10 @@ public class SolarSystem {
         myCelestialBodies = new ArrayList<CelestialBody>();
     }
 
+    public List<CelestialBody> getMyCelestialBodies() {
+        return myCelestialBodies;
+    }
+
     /**
      * Add a new Celestial Body to this Solar System
      * */

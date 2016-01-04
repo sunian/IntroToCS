@@ -1,9 +1,10 @@
 import javafx.geometry.Point3D;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
 /**
  * Created by Sun on 10/13/2015.
- *
+ * <p>
  * This is the parent class for all celestial bodies.
  */
 public abstract class CelestialBody implements CollidableObject {
@@ -11,6 +12,8 @@ public abstract class CelestialBody implements CollidableObject {
     public String name;
     public double mass; //  units = Earth masses
     public Color color;
+    public static int axisScale = 100;
+    public static int massScale = 200;
 
     public CelestialBody(String name, Point3D startingLocation, Double mass) {
         this.name = name;
@@ -20,6 +23,12 @@ public abstract class CelestialBody implements CollidableObject {
 
     public void setColor(Color color) {
         this.color = color;
+    }
+
+    public void draw(GraphicsContext gc) {
+        double diameter = Math.log(mass * massScale);
+        gc.setFill(color);
+        gc.fillOval(location.getX() * axisScale - diameter / 2.0, location.getY() * axisScale - diameter / 2.0, diameter, diameter);
     }
 
     @Override
