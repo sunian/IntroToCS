@@ -22,18 +22,20 @@ public class Main extends Application {
         launch(args);
     }
 
+
     @Override
     public void init() throws Exception {
         super.init();
         mySolarSystem = new SolarSystem();
         Star sun = new Star("SUN", new Point3D(0, 0, 0), 3330000.0);
-        sun.setColor(Color.ORANGERED);
+        sun.setColor(Color.ORANGE);
         mySolarSystem.addCelestialBody(sun); // our SolarSystem now has a Star!
         SolidPlanet earth = new SolidPlanet("Earth", new Point3D(1.0, 0, 0), 1.0);
         earth.setColor(Color.BLUE);
         mySolarSystem.addCelestialBody(earth);
-        System.out.println(mySolarSystem.myCelestialBodies);
-
+        SolidPlanet mars = new SolidPlanet("Mars", new Point3D(1.38, 0, 0), 0.107);
+        mars.setColor(Color.RED);
+        mySolarSystem.addCelestialBody(mars);
     }
 
     @Override
@@ -47,14 +49,11 @@ public class Main extends Application {
         gc.setStroke(Color.BLUE);
         gc.fillText("This is a solar system...", 10, 30);
         gc.translate(canvas.getWidth() / 2.0, canvas.getHeight() / 2.0);
-//        gc.setFill(Color.ORANGE);
-//        gc.fillOval(0, 0, 100, 100);
         intro.getChildren().add(canvas);
         Scene primaryScene = new Scene(intro);
         primaryStage.setTitle("stage");
         primaryStage.setScene(primaryScene);
         primaryStage.show();
-        mySolarSystem.getMyCelestialBodies().get(0).draw(gc);
-        mySolarSystem.getMyCelestialBodies().get(1).draw(gc);
+        mySolarSystem.draw(gc);
     }
 }
