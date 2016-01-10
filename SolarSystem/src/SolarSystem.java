@@ -33,7 +33,7 @@ public class SolarSystem {
         myCelestialBodies.add(aBody);
     }
 
-    public void timePasses(double timeInterval) {
+    public void handleTimeLapse(double timeInterval) {
 
     }
 }

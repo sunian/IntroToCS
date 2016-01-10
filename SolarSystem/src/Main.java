@@ -14,6 +14,8 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
     public SolarSystem mySolarSystem;
+    public Thread physicsThread;
+    public Runnable physicsRunnable = Main.this::runPhysicsThread;
 
     /**
      * This is where the program begins execution.
@@ -22,6 +24,23 @@ public class Main extends Application {
         launch(args);
     }
 
+    //this method is being run in a different thread
+    public void runPhysicsThread() {
+        long currentTime = System.currentTimeMillis();
+        long nextTime;
+        while (true) {
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+                break;
+            }
+            nextTime = System.currentTimeMillis();
+            System.out.println(nextTime - currentTime);
+            mySolarSystem.handleTimeLapse(nextTime - currentTime);
+            currentTime = nextTime;
+        }
+    }
 
     @Override
     public void init() throws Exception {
@@ -36,6 +55,9 @@ public class Main extends Application {
         SolidPlanet mars = new SolidPlanet("Mars", new Point3D(1.38, 0, 0), 0.107);
         mars.setColor(Color.RED);
         mySolarSystem.addCelestialBody(mars);
+        physicsThread = new Thread(physicsRunnable);
+        physicsThread.setDaemon(true);
+        physicsThread.start();
     }
 
     @Override
