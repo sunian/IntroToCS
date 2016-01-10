@@ -1,3 +1,4 @@
+import javafx.geometry.Point3D;
 import javafx.scene.canvas.GraphicsContext;
 
 import java.util.ArrayList;
@@ -34,6 +35,19 @@ public class SolarSystem {
     }
 
     public void handleTimeLapse(double timeInterval) {
-
+        timeInterval /= 1000;
+        for (int firstIndex = 0; firstIndex < myCelestialBodies.size() - 1; firstIndex++) {
+            CelestialBody firstBody = myCelestialBodies.get(firstIndex);
+            for (int secondIndex = firstIndex + 1; secondIndex < myCelestialBodies.size(); secondIndex++) {
+                CelestialBody secondBody = myCelestialBodies.get(secondIndex);
+                Point3D force = secondBody.calcForceOnBody(firstBody);
+                firstBody.applyForce(force, timeInterval);
+                force = force.multiply(-1); // reverse the force before applying to second body
+                secondBody.applyForce(force, timeInterval);
+            }
+        }
+        for (CelestialBody body : myCelestialBodies) {
+            body.applyMyVelocity(timeInterval);
+        }
     }
 }

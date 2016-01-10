@@ -13,9 +13,12 @@ import javafx.stage.Stage;
  * Created by Sun on 10/3/2015.
  */
 public class Main extends Application {
+    int windowWidth = 1000;
+    int windowHeight = 500;
     public SolarSystem mySolarSystem;
     public Thread physicsThread;
     public Runnable physicsRunnable = Main.this::runPhysicsThread;
+    GraphicsContext solarSystemGraphicsContext;
 
     /**
      * This is where the program begins execution.
@@ -33,13 +36,19 @@ public class Main extends Application {
                 Thread.sleep(10);
             } catch (InterruptedException e) {
                 e.printStackTrace();
+                System.out.println("breaking");
                 break;
             }
+            solarSystemGraphicsContext.setGlobalAlpha(0.1);
+            solarSystemGraphicsContext.setFill(Color.WHITE);
+            solarSystemGraphicsContext.fillRect(-windowWidth / 2, -windowHeight / 2, windowWidth, windowHeight);
+            solarSystemGraphicsContext.setGlobalAlpha(1.0);
+            mySolarSystem.draw(solarSystemGraphicsContext);
             nextTime = System.currentTimeMillis();
-            System.out.println(nextTime - currentTime);
             mySolarSystem.handleTimeLapse(nextTime - currentTime);
             currentTime = nextTime;
         }
+        System.out.println("broke");
     }
 
     @Override
@@ -51,20 +60,22 @@ public class Main extends Application {
         mySolarSystem.addCelestialBody(sun); // our SolarSystem now has a Star!
         SolidPlanet earth = new SolidPlanet("Earth", new Point3D(1.0, 0, 0), 1.0);
         earth.setColor(Color.BLUE);
+        earth.setVelocity(new Point3D(0, 0.969704, 0));
         mySolarSystem.addCelestialBody(earth);
         SolidPlanet mars = new SolidPlanet("Mars", new Point3D(1.38, 0, 0), 0.107);
         mars.setColor(Color.RED);
+        mars.setVelocity(new Point3D(0, 0.505932, 0));
         mySolarSystem.addCelestialBody(mars);
         physicsThread = new Thread(physicsRunnable);
         physicsThread.setDaemon(true);
-        physicsThread.start();
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         Group intro = new Group();
-        Canvas canvas = new Canvas(1000, 500);
+        Canvas canvas = new Canvas(windowWidth, windowHeight);
         GraphicsContext gc = canvas.getGraphicsContext2D();
+        solarSystemGraphicsContext = gc;
         gc.setFill(Color.BLACK);
         Font font = new Font(20);
         gc.setFont(font);
@@ -76,6 +87,6 @@ public class Main extends Application {
         primaryStage.setTitle("stage");
         primaryStage.setScene(primaryScene);
         primaryStage.show();
-        mySolarSystem.draw(gc);
+        physicsThread.start();
     }
 }
